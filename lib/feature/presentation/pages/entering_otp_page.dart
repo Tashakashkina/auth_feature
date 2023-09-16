@@ -18,7 +18,7 @@ class EnteringOtpPage extends StatelessWidget {
               style: ButtonStyle(
                   backgroundColor:
                       MaterialStatePropertyAll(AuthStyles.buttonColor)),
-              onPressed: () => context.go('/success'),
+              onPressed: () => context.go('/otp/success'),
               child: Text('Отправить'),
             ),
           ]),

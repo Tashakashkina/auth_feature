@@ -19,7 +19,7 @@ class SuccessAuthPage extends StatelessWidget {
                   backgroundColor:
                       MaterialStatePropertyAll(AuthStyles.buttonColor)),
               onPressed: () => context.go('/'),
-              child: Text('Продолжим дальше?'),
+              child: const Text('Продолжим дальше?'),
             ),
           ]),
         ));
