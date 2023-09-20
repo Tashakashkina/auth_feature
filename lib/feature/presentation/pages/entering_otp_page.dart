@@ -8,6 +8,7 @@ class EnteringOtpPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        resizeToAvoidBottomInset: false,
         appBar: AppBar(
           elevation: 0,
           backgroundColor: const Color.fromRGBO(252, 252, 252, 1),
@@ -19,7 +20,7 @@ class EnteringOtpPage extends StatelessWidget {
                   backgroundColor:
                       MaterialStatePropertyAll(AuthStyles.buttonColor)),
               onPressed: () => context.go('/otp/success'),
-              child: Text('Отправить'),
+              child: const Text('Отправить'),
             ),
           ]),
         ));

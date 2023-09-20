@@ -5,8 +5,12 @@ import 'feature/presentation/pages/entering_otp_page.dart';
 import 'feature/presentation/pages/entering_phone_page.dart';
 import 'feature/presentation/pages/success_auth_page.dart';
 
-void main() => runApp(const MyApp());
-final GoRouter _router = GoRouter(routes: <RouteBase>[
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp(const MyApp());
+}
+
+final GoRouter _router = GoRouter(initialLocation: '/', routes: <RouteBase>[
   GoRoute(
     path: '/',
     builder: (BuildContext context, GoRouterState state) =>
