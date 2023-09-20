@@ -1,15 +1,12 @@
 import 'package:equatable/equatable.dart';
 
 class AuthFeature extends Equatable {
-  final int phoneNumber;
-  final int code;
+  final int token;
 
   const AuthFeature({
-    required this.phoneNumber,
-    required this.code,
+    required this.token,
   });
 
   @override
-  // TODO: implement props
-  List<Object?> get props => throw UnimplementedError();
+  List<Object> get props => [token];
 }
