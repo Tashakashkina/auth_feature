@@ -8,20 +8,34 @@ class SuccessAuthPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        resizeToAvoidBottomInset: false,
         appBar: AppBar(
           elevation: 0,
           backgroundColor: AuthStyles.backgroundColor,
         ),
         body: SafeArea(
-          child: Column(children: <Widget>[
+            child: Center(
+          child: Column(children: [
+            const SizedBox(height: 208),
+            Text(
+              'УСПЕШНО',
+              style: AuthStyles.headlineStyle1,
+            ),
+            const SizedBox(height: 360),
             ElevatedButton(
-              style: ButtonStyle(
-                  backgroundColor:
-                      MaterialStatePropertyAll(AuthStyles.buttonColor)),
+              style: ElevatedButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(80)),
+                backgroundColor: AuthStyles.buttonColor,
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
+                fixedSize: const Size(360, 56),
+              ),
               onPressed: () => context.go('/'),
-              child: const Text('Продолжим дальше?'),
+              child:
+                  Text('Продолжим дальше?', style: AuthStyles.headlineStyle3),
             ),
           ]),
-        ));
+        )));
   }
 }
