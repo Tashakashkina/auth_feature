@@ -1,6 +1,6 @@
-import 'package:auth_feature/feature/domain/entities/auth_feature.dart';
+import 'package:auth_feature/feature/domain/entities/auth_token.dart';
 
-class AuthFeatureModel extends AuthFeature {
+class AuthFeatureModel extends AuthToken {
   const AuthFeatureModel({
     required int token,
   }) : super(token: token);

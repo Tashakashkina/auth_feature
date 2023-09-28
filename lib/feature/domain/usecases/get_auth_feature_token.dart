@@ -3,15 +3,15 @@ import 'package:dartz/dartz.dart';
 
 import '../../../core/error/failures.dart';
 import '../../../core/usecase.dart';
-import '../entities/auth_feature.dart';
+import '../entities/auth_token.dart';
 
-class GetAuthFeatureToken implements UseCase<AuthFeature, NoParams> {
+class GetAuthFeatureToken implements UseCase<AuthToken, NoParams> {
   final AuthFeatureRepository repository;
 
   GetAuthFeatureToken(this.repository);
 
   @override
-  Future<Either<Failure, AuthFeature>> call(NoParams params) {
-    return repository.getAuthFeatureToken();
+  Future<Either<Failure, AuthToken>> call(NoParams params) {
+    return repository.getAuthToken();
   }
 }
