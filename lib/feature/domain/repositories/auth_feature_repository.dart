@@ -5,5 +5,5 @@ import 'package:dartz/dartz.dart';
 import '../../../core/error/failures.dart';
 
 abstract class AuthFeatureRepository {
-  Future<Either<Failure, AuthFeature>>? getAuthFeatureToken();
+  Future<Either<Failure, AuthFeature>> getAuthFeatureToken();
 }

@@ -11,7 +11,7 @@ class GetAuthFeatureToken implements UseCase<AuthFeature, NoParams> {
   GetAuthFeatureToken(this.repository);
 
   @override
-  Future<Either<Failure, AuthFeature>?> call(NoParams params) async {
-    return await repository.getAuthFeatureToken();
+  Future<Either<Failure, AuthFeature>> call(NoParams params) {
+    return repository.getAuthFeatureToken();
   }
 }
