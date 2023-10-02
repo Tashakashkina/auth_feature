@@ -5,9 +5,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../../core/error/exceptions.dart';
 
 abstract class AuthFeatureLocalDataSource {
-  Future<AuthFeatureModel> getAuthToken();
+  Future<AuthFeatureModel> restoreToken();
 
-  Future<void> cacheAuthFeatureToken(AuthFeatureModel tokenToCache);
+  Future<void> cacheToken(AuthFeatureModel tokenToCache);
 }
 
 class AuthFeatureLocalDataSourceImpl implements AuthFeatureLocalDataSource {
@@ -16,7 +16,7 @@ class AuthFeatureLocalDataSourceImpl implements AuthFeatureLocalDataSource {
   AuthFeatureLocalDataSourceImpl({required this.sharedPreferences});
 
   @override
-  Future<AuthFeatureModel> getAuthToken() {
+  Future<AuthFeatureModel> restoreToken() {
     final jsonString = sharedPreferences.getString('token');
     if (jsonString != null) {
       return Future.value(AuthFeatureModel.fromJson(json.decode(jsonString)));
@@ -26,7 +26,7 @@ class AuthFeatureLocalDataSourceImpl implements AuthFeatureLocalDataSource {
   }
 
   @override
-  Future<void> cacheAuthFeatureToken(AuthFeatureModel tokenToCache) {
+  Future<void> cacheToken(AuthFeatureModel tokenToCache) {
     return sharedPreferences.setString(
       'token',
       json.encode(tokenToCache.toJson()),
