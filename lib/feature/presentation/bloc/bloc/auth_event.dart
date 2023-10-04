@@ -6,7 +6,7 @@ sealed class AuthEvent extends Equatable {
 }
 
 final class GetTokenEvent extends AuthEvent {
-  String? token;
+  final String token;
 
-  GetTokenEvent({this.token});
+  GetTokenEvent({required this.token});
 }

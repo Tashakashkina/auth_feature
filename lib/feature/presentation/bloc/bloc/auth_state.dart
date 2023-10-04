@@ -16,6 +16,6 @@ final class AuthNotCompleted extends AuthState {}
 final class AuthGetToken extends AuthState {}
 
 final class AuthError extends AuthState {
-  String? error;
-  AuthError(this.error);
+  final String error;
+  const AuthError(this.error);
 }

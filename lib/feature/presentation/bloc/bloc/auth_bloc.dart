@@ -12,8 +12,8 @@ getStringValuesSF() async {
   sfToken = prefs.getString('token').toString();
 }
 
-class LoginBloc extends Bloc<AuthEvent, AuthState> {
-  LoginBloc() : super(AuthInitial()) {
+class AuthBloc extends Bloc<AuthEvent, AuthState> {
+  AuthBloc() : super(AuthInitial()) {
     String? sfToken;
 //calling function to get value by SharedPreferences
     getStringValuesSF();
