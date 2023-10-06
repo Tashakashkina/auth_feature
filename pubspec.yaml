@@ -45,6 +45,9 @@ dependencies:
   http: ^1.1.0
   internet_connection_checker: ^1.0.0+1
   matcher: ^0.12.15
+  firebase_auth: ^4.10.1
+  firebase_core: ^2.17.0
+  cloud_firestore: ^4.9.3
 
 dev_dependencies:
   flutter_test:
