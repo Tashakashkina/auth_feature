@@ -10,46 +10,39 @@ class SuccessAuthPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<AuthenticationBloc, AuthenticationState>(
-      listener: (context, state) {
-        // TODO: implement listener
-      },
-      builder: (context, state) {
-        return Scaffold(
-            resizeToAvoidBottomInset: false,
-            appBar: AppBar(
-              elevation: 0,
-              backgroundColor: AuthStyles.backgroundColor,
+    return Scaffold(
+        resizeToAvoidBottomInset: false,
+        appBar: AppBar(
+          elevation: 0,
+          backgroundColor: AuthStyles.backgroundColor,
+        ),
+        body: SafeArea(
+            child: Center(
+          child: Column(children: [
+            const SizedBox(height: 208),
+            Text(
+              'УСПЕШНО',
+              style: AuthStyles.headlineStyle1,
             ),
-            body: SafeArea(
-                child: Center(
-              child: Column(children: [
-                const SizedBox(height: 208),
-                Text(
-                  'УСПЕШНО',
-                  style: AuthStyles.headlineStyle1,
-                ),
-                const SizedBox(height: 360),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(80)),
-                    backgroundColor: AuthStyles.buttonColor,
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 25, vertical: 15),
-                    fixedSize: const Size(360, 56),
-                  ),
-                  onPressed: () {
-                    FirebaseAuth auth = FirebaseAuth.instance;
-                    auth.signOut().then((res) {
-                      context.go('/');
-                    });
-                  },
-                  child: Text('LogOut', style: AuthStyles.headlineStyle3),
-                ),
-              ]),
-            )));
-      },
-    );
+            const SizedBox(height: 360),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(80)),
+                backgroundColor: AuthStyles.buttonColor,
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
+                fixedSize: const Size(360, 56),
+              ),
+              onPressed: () {
+                FirebaseAuth auth = FirebaseAuth.instance;
+                auth.signOut().then((res) {
+                  context.go('/');
+                });
+              },
+              child: Text('LogOut', style: AuthStyles.headlineStyle3),
+            ),
+          ]),
+        )));
   }
 }

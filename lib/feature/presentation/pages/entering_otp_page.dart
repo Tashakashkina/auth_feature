@@ -19,91 +19,83 @@ class _EnteringOtpPageState extends State<EnteringOtpPage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<AuthenticationBloc, AuthenticationState>(
-      listener: (context, state) {
-        // TODO: implement listener
-      },
-      builder: (context, state) {
-        return Scaffold(
-          resizeToAvoidBottomInset: false,
-          appBar: AppBar(
-            elevation: 0,
-            backgroundColor: const Color.fromRGBO(252, 252, 252, 1),
-          ),
-          body: SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
-              child: Column(
-                children: [
-                  const SizedBox(
-                    height: 79,
-                  ),
-                  const ImageIcon(
-                    AssetImage('assets/icons/closecancel.png'),
-                  ),
-                  const SizedBox(height: 129),
-                  Text('МЫ ОТПРАВИЛИ ВАМ КОД',
-                      style: AuthStyles.headlineStyle1),
-                  const SizedBox(height: 26),
-                  Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(50),
-                        color: Colors.white,
-                        boxShadow: const [
-                          BoxShadow(
-                              color: Color.fromRGBO(195, 186, 176, 0.2),
-                              blurRadius: 15.0,
-                              spreadRadius: 0.0,
-                              offset: Offset(0, 7),
-                              blurStyle: BlurStyle.normal)
-                        ]),
-                    child: Form(
-                      key: _formKey,
-                      child: TextFormField(
-                        maxLength: 4,
-                        style: AuthStyles.headlineStyle2,
-                        keyboardType: TextInputType.number,
-                        controller: otpCode,
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return 'Введите код из смс';
-                          }
-                          return null;
-                        },
-                        decoration: InputDecoration(
-                          counterText: "",
-                          labelText: 'Код из SMS',
-                          labelStyle: AuthStyles.headlineStyle2,
-                          border: const OutlineInputBorder(
-                            borderSide: BorderSide.none,
-                          ),
-                        ),
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: const Color.fromRGBO(252, 252, 252, 1),
+      ),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
+          child: Column(
+            children: [
+              const SizedBox(
+                height: 79,
+              ),
+              const ImageIcon(
+                AssetImage('assets/icons/closecancel.png'),
+              ),
+              const SizedBox(height: 129),
+              Text('МЫ ОТПРАВИЛИ ВАМ КОД', style: AuthStyles.headlineStyle1),
+              const SizedBox(height: 26),
+              Container(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(50),
+                    color: Colors.white,
+                    boxShadow: const [
+                      BoxShadow(
+                          color: Color.fromRGBO(195, 186, 176, 0.2),
+                          blurRadius: 15.0,
+                          spreadRadius: 0.0,
+                          offset: Offset(0, 7),
+                          blurStyle: BlurStyle.normal)
+                    ]),
+                child: Form(
+                  key: _formKey,
+                  child: TextFormField(
+                    maxLength: 4,
+                    style: AuthStyles.headlineStyle2,
+                    keyboardType: TextInputType.number,
+                    controller: otpCode,
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Введите код из смс';
+                      }
+                      return null;
+                    },
+                    decoration: InputDecoration(
+                      counterText: "",
+                      labelText: 'Код из SMS',
+                      labelStyle: AuthStyles.headlineStyle2,
+                      border: const OutlineInputBorder(
+                        borderSide: BorderSide.none,
                       ),
                     ),
                   ),
-                  const SizedBox(height: 259),
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(80)),
-                      backgroundColor: AuthStyles.buttonColor,
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 25, vertical: 15),
-                      fixedSize: const Size(360, 56),
-                    ),
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        context.go('/otp/success');
-                      }
-                    },
-                    child: const Text('Отправить'),
-                  ),
-                ],
+                ),
               ),
-            ),
+              const SizedBox(height: 259),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(80)),
+                  backgroundColor: AuthStyles.buttonColor,
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
+                  fixedSize: const Size(360, 56),
+                ),
+                onPressed: () {
+                  if (_formKey.currentState!.validate()) {
+                    context.go('/otp/success');
+                  }
+                },
+                child: const Text('Отправить'),
+              ),
+            ],
           ),
-        );
-      },
+        ),
+      ),
     );
   }
 }

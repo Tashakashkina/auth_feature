@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "654147822514",
+    "project_id": "easy-edu-8514d",
+    "storage_bucket": "easy-edu-8514d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:654147822514:android:9b93c36a16a2a5e51abaab",
+        "android_client_info": {
+          "package_name": "com.cg.easy"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC6JbdGFHtGQPSkUXoFWrUjpcDtqFqs-Do"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:654147822514:android:eaf3e28d555e96521abaab",
+        "android_client_info": {
+          "package_name": "com.example.auth_feature"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC6JbdGFHtGQPSkUXoFWrUjpcDtqFqs-Do"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
