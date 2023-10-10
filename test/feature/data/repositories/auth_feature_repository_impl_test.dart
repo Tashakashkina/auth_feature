@@ -1,4 +1,4 @@
-import 'package:auth_feature/core/network/network_info.dart';
+import 'package:auth_feature/feature/network/network_info.dart';
 import 'package:auth_feature/feature/data/datasources/auth_feature_local_data_source.dart';
 import 'package:auth_feature/feature/data/datasources/auth_feature_remote_data_source.dart';
 import 'package:auth_feature/feature/data/models.dart/auth_feature_model.dart';

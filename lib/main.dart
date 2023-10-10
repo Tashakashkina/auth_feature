@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-
-import 'feature/presentation/bloc/bloc/authentication/bloc/authentication_bloc.dart';
+import 'feature/data/datasources/auth_feature_remote_data_source.dart';
 import 'feature/presentation/pages/entering_otp_page.dart';
 import 'feature/presentation/pages/entering_phone_page.dart';
 import 'feature/presentation/pages/success_auth_page.dart';
@@ -19,37 +18,32 @@ void main() async {
 }
 
 User? result = FirebaseAuth.instance.currentUser;
-final GoRouter _router = GoRouter(
-    initialLocation: '/'
-// add BlocNavigate
-    ,
+final GoRouter _router = GoRouter(initialLocation: '/', routes: <RouteBase>[
+  GoRoute(
+    path: '/',
+    builder: (BuildContext context, GoRouterState state) =>
+        const EnteringPhonePage(),
     routes: <RouteBase>[
       GoRoute(
-        path: '/',
+        path: 'otp',
         builder: (BuildContext context, GoRouterState state) =>
-            const EnteringPhonePage(),
+            const EnteringOtpPage(),
         routes: <RouteBase>[
           GoRoute(
-            path: 'otp',
-            builder: (BuildContext context, GoRouterState state) =>
-                const EnteringOtpPage(),
-            routes: <RouteBase>[
-              GoRoute(
-                  path: 'success',
-                  builder: (BuildContext context, GoRouterState state) =>
-                      const SuccessAuthPage()),
-            ],
-          ),
+              path: 'success',
+              builder: (BuildContext context, GoRouterState state) =>
+                  const SuccessAuthPage()),
         ],
-      )
-    ]);
+      ),
+    ],
+  )
+]);
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    User? result = FirebaseAuth.instance.currentUser;
     return MaterialApp.router(
       routerConfig: _router,
       theme: ThemeData(shadowColor: const Color.fromRGBO(243, 243, 243, 1)),

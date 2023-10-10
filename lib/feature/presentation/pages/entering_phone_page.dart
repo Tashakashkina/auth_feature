@@ -1,6 +1,8 @@
-import 'package:auth_feature/feature/presentation/bloc/bloc/authentication/bloc/authentication_bloc.dart';
+import 'package:auth_feature/feature/domain/usecases/get_token.dart';
+import 'package:auth_feature/feature/presentation/pages/success_auth_page.dart';
 import 'package:auth_feature/feature/presentation/utils/styles.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -13,7 +15,7 @@ class EnteringPhonePage extends StatefulWidget {
 }
 
 class _EnteringPhonePageState extends State<EnteringPhonePage> {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseAuth auth = FirebaseAuth.instance;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   TextEditingController phoneNumber = TextEditingController();
 
@@ -68,7 +70,7 @@ class _EnteringPhonePageState extends State<EnteringPhonePage> {
                     keyboardType: TextInputType.number,
                     controller: phoneNumber,
                     validator: (value) {
-                      if (value!.isEmpty) {
+                      if (value!.isEmpty && value.length == 11) {
                         return 'Введите номер телефона';
                       }
                       return null;

@@ -1,4 +1,3 @@
-import 'package:auth_feature/feature/presentation/bloc/bloc/authentication/bloc/authentication_bloc.dart';
 import 'package:auth_feature/feature/presentation/utils/styles.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +12,7 @@ class EnteringOtpPage extends StatefulWidget {
 }
 
 class _EnteringOtpPageState extends State<EnteringOtpPage> {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseAuth auth = FirebaseAuth.instance;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   TextEditingController otpCode = TextEditingController();
 
@@ -59,7 +58,7 @@ class _EnteringOtpPageState extends State<EnteringOtpPage> {
                     keyboardType: TextInputType.number,
                     controller: otpCode,
                     validator: (value) {
-                      if (value!.isEmpty) {
+                      if (value!.isEmpty && value.length == 4) {
                         return 'Введите код из смс';
                       }
                       return null;

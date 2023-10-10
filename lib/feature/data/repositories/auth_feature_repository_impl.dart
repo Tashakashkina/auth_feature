@@ -1,7 +1,7 @@
 import 'package:auth_feature/core/error/failures.dart';
 import 'package:auth_feature/feature/domain/repositories/auth_feature_repository.dart';
 import 'package:dartz/dartz.dart';
-import '../../../core/network/network_info.dart';
+import '../../network/network_info.dart';
 import '../../domain/entities/auth_token.dart';
 import '../datasources/auth_feature_local_data_source.dart';
 import '../datasources/auth_feature_remote_data_source.dart';

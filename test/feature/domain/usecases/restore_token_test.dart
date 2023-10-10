@@ -1,32 +1,38 @@
 import 'package:auth_feature/core/usecase.dart';
 import 'package:auth_feature/feature/domain/entities/auth_token.dart';
 import 'package:auth_feature/feature/domain/repositories/auth_feature_repository.dart';
-import 'package:auth_feature/feature/domain/usecases/get_auth_feature_token.dart';
+import 'package:auth_feature/feature/domain/usecases/restore_token.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 
-class MockAuthFeatureRepository extends Mock implements AuthFeatureRepository {}
+import 'get_token_test.dart';
+
+class MockNumberTriviaRepository extends Mock
+    implements AuthFeatureRepository {}
 
 void main() {
-  late GetAuthFeatureToken usecase;
+  late RestoreToken usecase;
   late MockAuthFeatureRepository mockAuthFeatureRepository;
 
   setUp(() {
     mockAuthFeatureRepository = MockAuthFeatureRepository();
-    usecase = GetAuthFeatureToken(mockAuthFeatureRepository);
+    usecase = RestoreToken(mockAuthFeatureRepository);
   });
+
   const tAuthToken = AuthToken(token: 1);
+
   test(
-    'should get token from the local repository',
+    'should get token from the repository',
     () async {
-      when(mockAuthFeatureRepository.getAuthToken())
+      // arrange
+      when(mockAuthFeatureRepository.restoreToken())
           .thenAnswer((_) async => const Right(tAuthToken));
-
+      // act
       final result = await usecase(NoParams());
-
+      // assert
       expect(result, const Right(tAuthToken));
-      verify(mockAuthFeatureRepository.getAuthToken());
+      verify(mockAuthFeatureRepository.restoreToken());
       verifyNoMoreInteractions(mockAuthFeatureRepository);
     },
   );
