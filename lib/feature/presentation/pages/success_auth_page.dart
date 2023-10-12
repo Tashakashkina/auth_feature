@@ -1,10 +1,8 @@
 import 'package:auth_feature/feature/presentation/utils/styles.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-
-import '../../data/datasources/auth_feature_remote_data_source.dart';
 
 class SuccessAuthPage extends StatelessWidget {
   const SuccessAuthPage({super.key});
@@ -38,8 +36,8 @@ class SuccessAuthPage extends StatelessWidget {
                 fixedSize: const Size(360, 56),
               ),
               onPressed: () {
-                AuthFeatureRemoteDataSourceImpl(auth)
-                    .clearStorage()
+                FirebaseFirestore.instance
+                    .clearPersistence()
                     .then((value) => context.go('/'));
               },
               child: Text('LogOut', style: AuthStyles.headlineStyle3),

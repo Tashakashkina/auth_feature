@@ -1,5 +1,3 @@
-import 'package:auth_feature/feature/domain/usecases/get_token.dart';
-import 'package:auth_feature/feature/presentation/pages/success_auth_page.dart';
 import 'package:auth_feature/feature/presentation/utils/styles.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
