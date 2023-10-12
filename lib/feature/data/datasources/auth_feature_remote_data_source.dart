@@ -1,6 +1,7 @@
-import 'package:auth_feature/feature/data/models.dart/auth_feature_model.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
+import 'package:auth_feature/feature/data/models/auth_feature_model.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../../core/error/exceptions.dart';
 
 abstract class AuthFeatureRemoteDataSource {
@@ -8,24 +9,32 @@ abstract class AuthFeatureRemoteDataSource {
 }
 
 class AuthFeatureRemoteDataSourceImpl implements AuthFeatureRemoteDataSource {
-  late http.Client client;
+  final FirebaseAuth instance;
 
-  AuthFeatureRemoteDataSourceImpl({required this.client});
+  AuthFeatureRemoteDataSourceImpl({required this.instance});
+  Future<void> saveToken(data) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    sharedPreferences.setString("token", data['token']);
+  }
+
+  Future<void> signOut() async {
+    return await FirebaseAuth.instance.signOut();
+  }
+
   @override
-  Future<AuthFeatureModel> getAuthToken() => _getTokenFromUrl('http://');
-
-  Future<AuthFeatureModel> _getTokenFromUrl(String url) async {
-    final response = await client.get(
-      Uri.parse(url),
-      headers: {
-        'Content-Type': 'application/json',
+  Future<AuthFeatureModel> getAuthToken() async {
+    await instance.verifyPhoneNumber(
+      verificationCompleted: (PhoneAuthCredential phoneAuthCredential) {
+        phoneAuthCredential.accessToken;
       },
+      verificationFailed: (FirebaseAuthException e) {
+        if (e.code == 'invalid-phone-number') {
+          print('The provided phone number is not valid');
+        }
+      },
+      codeSent: (String verificationId, int? resendToken) {},
+      codeAutoRetrievalTimeout: (String verificationId) {},
     );
-
-    if (response.statusCode == 200) {
-      return AuthFeatureModel.fromJson(json.decode(response.body));
-    } else {
-      throw ServerException();
-    }
+    throw ServerException();
   }
 }
