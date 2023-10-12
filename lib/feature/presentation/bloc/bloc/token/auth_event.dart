@@ -16,3 +16,5 @@ final class GetTokenFromFirebase extends AuthTokenEvent {
 
   GetTokenFromFirebase(this.tokenString) : super();
 }
+
+final class CheckAuthToken extends AuthTokenEvent {}
