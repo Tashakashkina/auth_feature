@@ -1,3 +1,4 @@
+import 'package:auth_feature/core/error/exceptions.dart';
 import 'package:auth_feature/core/error/failures.dart';
 import 'package:auth_feature/feature/domain/repositories/auth_feature_repository.dart';
 import 'package:dartz/dartz.dart';
@@ -25,12 +26,21 @@ class AuthFeatureRepositoryImpl implements AuthFeatureRepository {
 
   @override
   Future<Either<Failure, AuthToken>> restoreToken() async {
-    return Right(await localDataSource.restoreToken());
+    try {
+      final token = await localDataSource.restoreToken();
+      return Right(token);
+    } on CacheException {
+      return Left(CacheFailure());
+    }
   }
 
   @override
-  Future<Either<Failure, AuthToken>> clearStorage() {
-    // TODO: implement clearStorage
-    throw UnimplementedError();
+  Future<Either<Failure, AuthToken>> clearStorage() async {
+    try {
+      final result = await localDataSource.clearStorage();
+      return Right(result);
+    } catch (e) {
+      return Left(CacheFailure());
+    }
   }
 }
