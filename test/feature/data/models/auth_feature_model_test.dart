@@ -1,4 +1,4 @@
-import 'package:auth_feature/feature/data/models.dart/auth_feature_model.dart';
+import 'package:auth_feature/feature/data/models/auth_feature_model.dart';
 import 'package:auth_feature/feature/domain/entities/auth_token.dart';
 import 'package:flutter_test/flutter_test.dart';
 

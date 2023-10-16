@@ -12,14 +12,12 @@ class MockAuthFeatureRepository extends Mock implements AuthFeatureRepository {}
 void main() {
   late AuthFeatureRepository mockAuthFeatureRepository;
   late ClearStorage usecase;
-  const tAuthToken = AuthToken(token: 1);
-
   setUp(() {
     mockAuthFeatureRepository = MockAuthFeatureRepository();
     usecase = ClearStorage(mockAuthFeatureRepository);
   });
-
-  test("should call the clearStorage method of task repo", () async {
+  const tAuthToken = AuthToken(token: 1);
+  test("should call the clearStorage repo method", () async {
     //arrange
 
     Either<Failure, AuthToken> repoResponse = const Right(tAuthToken);

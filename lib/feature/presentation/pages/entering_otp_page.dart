@@ -14,7 +14,7 @@ class EnteringOtpPage extends StatefulWidget {
 class _EnteringOtpPageState extends State<EnteringOtpPage> {
   final FirebaseAuth auth = FirebaseAuth.instance;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  TextEditingController otpCode = TextEditingController();
+  TextEditingController password = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -53,18 +53,10 @@ class _EnteringOtpPageState extends State<EnteringOtpPage> {
                 child: Form(
                   key: _formKey,
                   child: TextFormField(
-                    maxLength: 4,
                     style: AuthStyles.headlineStyle2,
                     keyboardType: TextInputType.number,
-                    controller: otpCode,
-                    validator: (value) {
-                      if (value!.isEmpty && value.length == 4) {
-                        return 'Введите код из смс';
-                      }
-                      return null;
-                    },
+                    controller: password,
                     decoration: InputDecoration(
-                      counterText: "",
                       labelText: 'Код из SMS',
                       labelStyle: AuthStyles.headlineStyle2,
                       border: const OutlineInputBorder(
@@ -85,9 +77,8 @@ class _EnteringOtpPageState extends State<EnteringOtpPage> {
                   fixedSize: const Size(360, 56),
                 ),
                 onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    context.go('/otp/success');
-                  }
+                  context.go('/phone/otp/success');
+                  password.clear();
                 },
                 child: const Text('Отправить'),
               ),

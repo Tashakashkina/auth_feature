@@ -1,5 +1,5 @@
 import 'package:auth_feature/feature/data/datasources/auth_feature_local_data_source.dart';
-import 'package:auth_feature/feature/data/models.dart/auth_feature_model.dart';
+import 'package:auth_feature/feature/data/models/auth_feature_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';

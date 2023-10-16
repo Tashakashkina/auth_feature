@@ -18,3 +18,5 @@ final class GetTokenFromFirebase extends AuthTokenEvent {
 }
 
 final class CheckAuthToken extends AuthTokenEvent {}
+
+final class ClearTokenStorage extends AuthTokenEvent {}

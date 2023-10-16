@@ -1,8 +1,11 @@
 import 'package:auth_feature/feature/data/models/auth_feature_model.dart';
+import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../core/error/exceptions.dart';
+import '../../../core/error/failures.dart';
+import '../../domain/entities/auth_token.dart';
 
 abstract class AuthFeatureRemoteDataSource {
   Future<AuthFeatureModel> getAuthToken();

@@ -1,7 +1,7 @@
 import 'package:auth_feature/feature/network/network_info.dart';
 import 'package:auth_feature/feature/data/datasources/auth_feature_local_data_source.dart';
 import 'package:auth_feature/feature/data/datasources/auth_feature_remote_data_source.dart';
-import 'package:auth_feature/feature/data/models.dart/auth_feature_model.dart';
+import 'package:auth_feature/feature/data/models/auth_feature_model.dart';
 import 'package:auth_feature/feature/data/repositories/auth_feature_repository_impl.dart';
 import 'package:auth_feature/feature/domain/entities/auth_token.dart';
 import 'package:dartz/dartz.dart';

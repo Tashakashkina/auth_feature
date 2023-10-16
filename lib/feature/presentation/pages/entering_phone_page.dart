@@ -15,7 +15,7 @@ class EnteringPhonePage extends StatefulWidget {
 class _EnteringPhonePageState extends State<EnteringPhonePage> {
   final FirebaseAuth auth = FirebaseAuth.instance;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  TextEditingController phoneNumber = TextEditingController();
+  TextEditingController email = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -63,21 +63,10 @@ class _EnteringPhonePageState extends State<EnteringPhonePage> {
                 child: Form(
                   key: _formKey,
                   child: TextFormField(
-                    maxLength: 10,
                     style: AuthStyles.headlineStyle2,
                     keyboardType: TextInputType.number,
-                    controller: phoneNumber,
-                    validator: (value) {
-                      if (value!.isEmpty && value.length == 11) {
-                        return 'Введите номер телефона';
-                      }
-                      return null;
-                    },
+                    controller: email,
                     decoration: InputDecoration(
-                      counterText: "",
-                      prefix: const Text('+7'),
-                      prefixStyle: AuthStyles.headlineStyle2,
-                      labelText: '+7',
                       floatingLabelBehavior: FloatingLabelBehavior.never,
                       labelStyle: AuthStyles.headlineStyle2,
                       border: const OutlineInputBorder(
@@ -98,9 +87,8 @@ class _EnteringPhonePageState extends State<EnteringPhonePage> {
                   fixedSize: const Size(360, 56),
                 ),
                 onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    context.go('/otp');
-                  }
+                  context.go('/phone/otp');
+                  email.clear();
                 },
                 child: Text('Начнем!', style: AuthStyles.headlineStyle3),
               ),
