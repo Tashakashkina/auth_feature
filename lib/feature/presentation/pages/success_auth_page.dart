@@ -1,14 +1,10 @@
-import 'package:auth_feature/feature/domain/usecases/clear_storage.dart';
 import 'package:auth_feature/feature/presentation/utils/styles.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import '../bloc/bloc/token/auth_bloc.dart';
 
 class SuccessAuthPage extends StatefulWidget {
-  SuccessAuthPage({super.key});
+  const SuccessAuthPage({super.key});
 
   @override
   State<SuccessAuthPage> createState() => _SuccessAuthPageState();
@@ -42,7 +38,7 @@ class _SuccessAuthPageState extends State<SuccessAuthPage> {
               padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
               fixedSize: const Size(360, 56),
             ),
-            onPressed: () {
+            onPressed: () async {
               context.read<AuthBloc>().add(ClearTokenStorage());
             },
             child: Text('LogOut', style: AuthStyles.headlineStyle3),

@@ -1,8 +1,7 @@
+import 'package:auth_feature/feature/presentation/pages/entering_otp_page.dart';
 import 'package:auth_feature/feature/presentation/utils/styles.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 class EnteringPhonePage extends StatefulWidget {
@@ -64,7 +63,7 @@ class _EnteringPhonePageState extends State<EnteringPhonePage> {
                   key: _formKey,
                   child: TextFormField(
                     style: AuthStyles.headlineStyle2,
-                    keyboardType: TextInputType.number,
+                    keyboardType: TextInputType.emailAddress,
                     controller: email,
                     decoration: InputDecoration(
                       floatingLabelBehavior: FloatingLabelBehavior.never,
@@ -86,9 +85,19 @@ class _EnteringPhonePageState extends State<EnteringPhonePage> {
                       const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
                   fixedSize: const Size(360, 56),
                 ),
-                onPressed: () {
-                  context.go('/phone/otp');
-                  email.clear();
+                onPressed: () async {
+                  try {
+                    await auth.signInWithEmailAndPassword(
+                        email: email.text, password: '');
+                    if (mounted) context.go('/phone/otp');
+                    email.clear();
+                  } catch (e) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(e.toString()),
+                      ),
+                    );
+                  }
                 },
                 child: Text('Начнем!', style: AuthStyles.headlineStyle3),
               ),

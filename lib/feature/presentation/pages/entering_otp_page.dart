@@ -1,7 +1,7 @@
 import 'package:auth_feature/feature/presentation/utils/styles.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:go_router/go_router.dart';
 
 class EnteringOtpPage extends StatefulWidget {
@@ -54,7 +54,7 @@ class _EnteringOtpPageState extends State<EnteringOtpPage> {
                   key: _formKey,
                   child: TextFormField(
                     style: AuthStyles.headlineStyle2,
-                    keyboardType: TextInputType.number,
+                    keyboardType: TextInputType.visiblePassword,
                     controller: password,
                     decoration: InputDecoration(
                       labelText: 'Код из SMS',
@@ -76,9 +76,19 @@ class _EnteringOtpPageState extends State<EnteringOtpPage> {
                       const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
                   fixedSize: const Size(360, 56),
                 ),
-                onPressed: () {
-                  context.go('/phone/otp/success');
-                  password.clear();
+                onPressed: () async {
+                  try {
+                    await auth.signInWithEmailAndPassword(
+                        email: '', password: password.text);
+                    if (mounted) context.go('/phone/otp/success');
+                    password.clear();
+                  } catch (e) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(e.toString()),
+                      ),
+                    );
+                  }
                 },
                 child: const Text('Отправить'),
               ),

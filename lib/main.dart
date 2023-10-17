@@ -1,12 +1,10 @@
 import 'package:auth_feature/feature/presentation/bloc/bloc/token/auth_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'feature/presentation/pages/entering_otp_page.dart';
 import 'feature/presentation/pages/entering_phone_page.dart';
 import 'feature/presentation/pages/success_auth_page.dart';
-
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'injection_container.dart';
@@ -14,10 +12,10 @@ import 'injection_container.dart' as di;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await di.init();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  await di.init();
   runApp(const MyApp());
 }
 
@@ -40,7 +38,7 @@ final GoRouter _router = GoRouter(initialLocation: '/', routes: <RouteBase>[
                 GoRoute(
                     path: 'success',
                     builder: (BuildContext context, GoRouterState state) =>
-                        SuccessAuthPage()),
+                        const SuccessAuthPage()),
               ],
             ),
           ],
@@ -85,7 +83,7 @@ class _BlocNavigateState extends State<BlocNavigate> {
       },
       child: Scaffold(
         backgroundColor: Colors.blue[100],
-        body: Center(child: CircularProgressIndicator()),
+        body: const Center(child: CircularProgressIndicator()),
       ),
     );
   }
