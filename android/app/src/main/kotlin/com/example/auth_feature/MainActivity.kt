@@ -1,4 +1,4 @@
-package com.example.auth_feature
+package com.cg.easy
 
 import io.flutter.embedding.android.FlutterActivity
 
