@@ -18,10 +18,12 @@ Future<void> init() async {
   sl.registerLazySingleton(() => AuthBloc(
         restoreToken: sl(),
         clearStorage: sl(),
+        getAuthToken: sl(),
       ));
 
   sl.registerLazySingleton(() => RestoreToken(sl()));
   sl.registerLazySingleton(() => ClearStorage(sl()));
+  sl.registerLazySingleton(() => GetToken(sl()));
 
   sl.registerLazySingleton<AuthFeatureRepository>(
     () => AuthFeatureRepositoryImpl(
