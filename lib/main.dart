@@ -13,8 +13,13 @@ import 'injection_container.dart' as di;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+      options: const FirebaseOptions(
+    apiKey: "AIzaSyC6JbdGFHtGQPSkUXoFWrUjpcDtqFqs-Do",
+    appId: "1:654147822514:android:eaf3e28d555e96521abaab",
+    messagingSenderId: "654147822514",
+    projectId: "easy-edu-8514d",
+  ));
+
   await di.init();
   runApp(const MyApp());
 }
