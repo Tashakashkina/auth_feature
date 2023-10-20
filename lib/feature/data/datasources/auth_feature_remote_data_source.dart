@@ -15,10 +15,6 @@ class AuthFeatureRemoteDataSourceImpl implements AuthFeatureRemoteDataSource {
     sharedPreferences.setString("token", data['token']);
   }
 
-  Future<void> signOut() async {
-    return await FirebaseAuth.instance.signOut();
-  }
-
   @override
   Future<UserCredential?> getAuthToken(String email, String password) async {
     try {
