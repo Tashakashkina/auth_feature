@@ -2,7 +2,6 @@ import 'package:auth_feature/feature/presentation/bloc/bloc/token/auth_bloc.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'feature/presentation/pages/entering_otp_page.dart';
 import 'feature/presentation/pages/entering_phone_page.dart';
 import 'feature/presentation/pages/success_auth_page.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -12,13 +11,7 @@ import 'injection_container.dart' as di;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-      options: const FirebaseOptions(
-    apiKey: "AIzaSyC6JbdGFHtGQPSkUXoFWrUjpcDtqFqs-Do",
-    appId: "1:654147822514:android:eaf3e28d555e96521abaab",
-    messagingSenderId: "654147822514",
-    projectId: "easy-edu-8514d",
-  ));
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   await di.init();
   runApp(const MyApp());
@@ -26,29 +19,23 @@ void main() async {
 
 final GoRouter _router = GoRouter(initialLocation: '/', routes: <RouteBase>[
   GoRoute(
-      path: '/',
-      builder: (BuildContext context, GoRouterState state) =>
-          const BlocNavigate(),
-      routes: <RouteBase>[
-        GoRoute(
-          path: 'phone',
-          builder: (BuildContext context, GoRouterState state) =>
-              const EnteringPhonePage(),
-          routes: <RouteBase>[
-            GoRoute(
-              path: 'otp',
+    path: '/',
+    builder: (BuildContext context, GoRouterState state) =>
+        const BlocNavigate(),
+    routes: <RouteBase>[
+      GoRoute(
+        path: 'emailpass',
+        builder: (BuildContext context, GoRouterState state) =>
+            const EnteringPhonePage(),
+        routes: <RouteBase>[
+          GoRoute(
+              path: 'success',
               builder: (BuildContext context, GoRouterState state) =>
-                  const EnteringOtpPage(),
-              routes: <RouteBase>[
-                GoRoute(
-                    path: 'success',
-                    builder: (BuildContext context, GoRouterState state) =>
-                        const SuccessAuthPage()),
-              ],
-            ),
-          ],
-        )
-      ])
+                  const SuccessAuthPage()),
+        ],
+      ),
+    ],
+  )
 ]);
 
 class MyApp extends StatelessWidget {
@@ -81,9 +68,9 @@ class _BlocNavigateState extends State<BlocNavigate> {
     return BlocListener<AuthBloc, AuthState>(
       listener: (context, state) {
         if (state is AuthCompleted) {
-          context.go('/otp/phone/success');
+          context.go('/emailpass/success');
         } else {
-          context.go('/phone');
+          context.go('/emailpass');
         }
       },
       child: Scaffold(

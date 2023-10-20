@@ -1,12 +1,13 @@
 import 'dart:convert';
 import 'package:auth_feature/feature/data/models/auth_feature_model.dart';
+import 'package:auth_feature/feature/domain/entities/auth_token.dart';
+import 'package:dartz/dartz.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../core/error/exceptions.dart';
 
 abstract class AuthFeatureLocalDataSource {
   Future<AuthFeatureModel> restoreToken();
-  Future<AuthFeatureModel> clearStorage();
-  Future<AuthFeatureModel> getAuthToken();
+  Future<bool> clearStorage();
 
   Future<void> cacheToken(AuthFeatureModel tokenToCache);
 }
@@ -16,6 +17,12 @@ class AuthFeatureLocalDataSourceImpl implements AuthFeatureLocalDataSource {
   late AuthFeatureLocalDataSource authFeatureLocalDataSource;
 
   AuthFeatureLocalDataSourceImpl({required this.sharedPreferences});
+
+  @override
+  Future<bool> clearStorage() async {
+    final sharedPreferences = await SharedPreferences.getInstance();
+    return sharedPreferences.clear();
+  }
 
   @override
   Future<AuthFeatureModel> restoreToken() {
@@ -33,15 +40,5 @@ class AuthFeatureLocalDataSourceImpl implements AuthFeatureLocalDataSource {
       'token',
       json.encode(tokenToCache.toJson()),
     );
-  }
-
-  @override
-  Future<AuthFeatureModel> clearStorage() {
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<AuthFeatureModel> getAuthToken() {
-    throw UnimplementedError();
   }
 }

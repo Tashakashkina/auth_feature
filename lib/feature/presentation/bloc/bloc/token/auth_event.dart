@@ -11,11 +11,7 @@ final class GetTokenFromStorage extends AuthTokenEvent {
   GetTokenFromStorage(this.tokenString) : super();
 }
 
-final class GetTokenFromFirebase extends AuthTokenEvent {
-  final String tokenString;
-
-  GetTokenFromFirebase(this.tokenString) : super();
-}
+final class GetTokenFromFirebase extends AuthTokenEvent {}
 
 final class CheckAuthToken extends AuthTokenEvent {}
 

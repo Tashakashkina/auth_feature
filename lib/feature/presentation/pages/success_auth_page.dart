@@ -1,6 +1,8 @@
 import 'package:auth_feature/feature/presentation/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import '../../../injection_container.dart';
 import '../bloc/bloc/token/auth_bloc.dart';
 
 class SuccessAuthPage extends StatefulWidget {
@@ -11,8 +13,6 @@ class SuccessAuthPage extends StatefulWidget {
 }
 
 class _SuccessAuthPageState extends State<SuccessAuthPage> {
-  final TextEditingController _controller = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,30 +21,35 @@ class _SuccessAuthPageState extends State<SuccessAuthPage> {
         elevation: 0,
         backgroundColor: AuthStyles.backgroundColor,
       ),
-      body: SafeArea(
-          child: Center(
-        child: Column(children: [
-          const SizedBox(height: 208),
-          Text(
-            'УСПЕШНО',
-            style: AuthStyles.headlineStyle1,
-          ),
-          const SizedBox(height: 360),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(80)),
-              backgroundColor: AuthStyles.buttonColor,
-              padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
-              fixedSize: const Size(360, 56),
+      body: BlocProvider(
+        create: (context) => sl<AuthBloc>()..add(ClearTokenStorage()),
+        child: SafeArea(
+            child: Center(
+          child: Column(children: [
+            const SizedBox(height: 208),
+            Text(
+              'УСПЕШНО',
+              style: AuthStyles.headlineStyle1,
             ),
-            onPressed: () async {
-              context.read<AuthBloc>().add(ClearTokenStorage());
-            },
-            child: Text('LogOut', style: AuthStyles.headlineStyle3),
-          ),
-        ]),
-      )),
+            const SizedBox(height: 360),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(80)),
+                backgroundColor: AuthStyles.buttonColor,
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
+                fixedSize: const Size(360, 56),
+              ),
+              onPressed: () async {
+                context.read<AuthBloc>().clearStorage;
+                context.go('/emailpass');
+              },
+              child: Text('LogOut', style: AuthStyles.headlineStyle3),
+            ),
+          ]),
+        )),
+      ),
     );
   }
 }

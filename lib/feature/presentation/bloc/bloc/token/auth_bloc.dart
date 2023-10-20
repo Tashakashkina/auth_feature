@@ -4,6 +4,7 @@ import 'package:auth_feature/feature/domain/usecases/clear_storage.dart';
 import 'package:auth_feature/feature/domain/usecases/get_token.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/src/widgets/editable_text.dart';
 import '../../../../domain/usecases/restore_token.dart';
 
 part 'auth_event.dart';
@@ -32,18 +33,19 @@ class AuthBloc extends Bloc<AuthTokenEvent, AuthState> {
     result.fold((l) => emit(AuthNotCompleted()), (r) => emit(AuthCompleted()));
   }
 
-  Future<void> _clearToken<ClearTokenStorage>(
+  Future<void> _clearToken(
       ClearTokenStorage event, Emitter<AuthState> emit) async {
     emit(AuthClearStorage());
     final result = await clearStorage.call(NoParams());
     result.fold(
-        (l) => emit(const AuthError('error')), (r) => emit(AuthClearStorage()));
+        (l) => emit(const AuthError('error')), (r) => emit(AuthNotCompleted()));
   }
 
-  Future<void> _getToken<GetTokenFromFirebase>(
+  Future<void> _getToken(
       GetTokenFromFirebase event, Emitter<AuthState> emit) async {
     emit(AuthGetToken());
-    final result = await getAuthToken.call(NoParams());
+    final result = await getAuthToken
+        .call(const EmailPasswordParams(email: '', password: ''));
     result.fold(
         (l) => emit(const AuthError('error')), (r) => emit(AuthCompleted()));
   }

@@ -1,7 +1,10 @@
+import 'package:auth_feature/feature/data/models/auth_feature_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class AuthFeatureRemoteDataSource {}
+abstract class AuthFeatureRemoteDataSource {
+  Future<UserCredential?> getAuthToken(String email, String password);
+}
 
 class AuthFeatureRemoteDataSourceImpl implements AuthFeatureRemoteDataSource {
   final FirebaseAuth instance;
@@ -16,15 +19,12 @@ class AuthFeatureRemoteDataSourceImpl implements AuthFeatureRemoteDataSource {
     return await FirebaseAuth.instance.signOut();
   }
 
-  Future<void> clearStorage() async {
-    return await FirebaseAuth.instance.signOut();
-  }
-
+  @override
   Future<UserCredential?> getAuthToken(String email, String password) async {
     try {
-      UserCredential userCredential = await FirebaseAuth.instance
-          .signInWithEmailAndPassword(email: 'qwe@qwe.qwe', password: password);
-      return userCredential;
+      UserCredential result = await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: email, password: password);
+      return result;
     } on FirebaseAuthException catch (e) {
       throw FirebaseAuthException(code: e.code, message: e.message);
     }

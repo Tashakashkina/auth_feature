@@ -33,17 +33,18 @@ class AuthFeatureRepositoryImpl implements AuthFeatureRepository {
   Future<Either<Failure, AuthToken>> clearStorage() async {
     try {
       final result = await localDataSource.clearStorage();
-      return Right(result);
+      return Right(result as AuthToken);
     } catch (e) {
       return Left(CacheFailure());
     }
   }
 
   @override
-  Future<Either<Failure, AuthToken>> getAuthToken() async {
+  Future<Either<Failure, AuthToken>> getAuthToken(
+      String email, String password) async {
     try {
-      final result = await localDataSource.getAuthToken();
-      return Right(result);
+      final result = await remoteDataSource.getAuthToken(email, password);
+      return Right(result as AuthToken);
     } catch (e) {
       return Left(CacheFailure());
     }
