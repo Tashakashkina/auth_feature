@@ -29,7 +29,7 @@ class AuthBloc extends Bloc<AuthTokenEvent, AuthState> {
       CheckAuthToken event, Emitter<AuthState> emit) async {
     emit(AuthChecking());
     final result = await restoreToken.call(NoParams());
-
+    print('check if auth');
     result.fold((l) => emit(AuthNotCompleted()), (r) => emit(AuthCompleted()));
   }
 
@@ -44,8 +44,8 @@ class AuthBloc extends Bloc<AuthTokenEvent, AuthState> {
   Future<void> _getToken(
       GetTokenFromFirebase event, Emitter<AuthState> emit) async {
     emit(AuthGetToken());
-    final result = await getAuthToken
-        .call(const EmailPasswordParams(email: '', password: ''));
+    final result = await getAuthToken.call(
+        EmailPasswordParams(email: event.email, password: event.password));
     result.fold(
         (l) => emit(const AuthError('error')), (r) => emit(AuthCompleted()));
   }

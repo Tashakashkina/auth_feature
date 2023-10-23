@@ -19,5 +19,5 @@ class EmailPasswordParams extends Equatable {
   const EmailPasswordParams({required this.email, required this.password});
 
   @override
-  List<Object?> get props => throw UnimplementedError();
+  List<Object?> get props => [];
 }

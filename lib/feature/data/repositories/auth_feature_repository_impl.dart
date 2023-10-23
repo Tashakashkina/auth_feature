@@ -1,5 +1,6 @@
 import 'package:auth_feature/core/error/exceptions.dart';
 import 'package:auth_feature/core/error/failures.dart';
+import 'package:auth_feature/feature/data/models/auth_feature_model.dart';
 import 'package:auth_feature/feature/domain/repositories/auth_feature_repository.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -44,7 +45,9 @@ class AuthFeatureRepositoryImpl implements AuthFeatureRepository {
       String email, String password) async {
     try {
       final result = await remoteDataSource.getAuthToken(email, password);
-      return Right(result as AuthToken);
+
+      await localDataSource.cacheToken(result!);
+      return Right(result);
     } catch (e) {
       return Left(CacheFailure());
     }

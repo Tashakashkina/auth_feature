@@ -14,7 +14,6 @@ abstract class AuthFeatureLocalDataSource {
 
 class AuthFeatureLocalDataSourceImpl implements AuthFeatureLocalDataSource {
   final SharedPreferences sharedPreferences;
-  late AuthFeatureLocalDataSource authFeatureLocalDataSource;
 
   AuthFeatureLocalDataSourceImpl({required this.sharedPreferences});
 

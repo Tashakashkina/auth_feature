@@ -5,13 +5,14 @@ class AuthTokenEvent extends Equatable {
   List<Object> get props => [];
 }
 
-final class GetTokenFromStorage extends AuthTokenEvent {
-  final String tokenString;
+final class GetTokenFromStorage extends AuthTokenEvent {}
 
-  GetTokenFromStorage(this.tokenString) : super();
+final class GetTokenFromFirebase extends AuthTokenEvent {
+  final String email;
+  final String password;
+
+  GetTokenFromFirebase({required this.email, required this.password});
 }
-
-final class GetTokenFromFirebase extends AuthTokenEvent {}
 
 final class CheckAuthToken extends AuthTokenEvent {}
 

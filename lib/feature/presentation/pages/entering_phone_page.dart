@@ -14,10 +14,15 @@ class EnteringPhonePage extends StatefulWidget {
 }
 
 class _EnteringPhonePageState extends State<EnteringPhonePage> {
-  final FirebaseAuth auth = FirebaseAuth.instance;
-
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
+
+  @override
+  void dispose() {
+    super.dispose();
+    email.dispose();
+    password.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +33,7 @@ class _EnteringPhonePageState extends State<EnteringPhonePage> {
         backgroundColor: const Color.fromRGBO(252, 252, 252, 1),
       ),
       body: BlocProvider(
-        create: (context) => sl<AuthBloc>()..add(GetTokenFromFirebase()),
+        create: (context) => sl<AuthBloc>()..add(CheckAuthToken()),
         child: SafeArea(
           child: Padding(
             padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
@@ -64,21 +69,17 @@ class _EnteringPhonePageState extends State<EnteringPhonePage> {
                             offset: Offset(0, 7),
                             blurStyle: BlurStyle.normal)
                       ]),
-                  child: BlocBuilder<AuthBloc, AuthState>(
-                    builder: (context, state) {
-                      return TextFormField(
-                        style: AuthStyles.headlineStyle2,
-                        keyboardType: TextInputType.emailAddress,
-                        controller: email,
-                        decoration: InputDecoration(
-                          floatingLabelBehavior: FloatingLabelBehavior.never,
-                          labelStyle: AuthStyles.headlineStyle2,
-                          border: const OutlineInputBorder(
-                            borderSide: BorderSide.none,
-                          ),
-                        ),
-                      );
-                    },
+                  child: TextFormField(
+                    style: AuthStyles.headlineStyle2,
+                    keyboardType: TextInputType.emailAddress,
+                    controller: email,
+                    decoration: InputDecoration(
+                      floatingLabelBehavior: FloatingLabelBehavior.never,
+                      labelStyle: AuthStyles.headlineStyle2,
+                      border: const OutlineInputBorder(
+                        borderSide: BorderSide.none,
+                      ),
+                    ),
                   ),
                 ),
                 const SizedBox(height: 26),
@@ -88,32 +89,27 @@ class _EnteringPhonePageState extends State<EnteringPhonePage> {
                 ),
                 const SizedBox(height: 20),
                 Container(
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(50),
-                      color: Colors.white,
-                      boxShadow: const [
-                        BoxShadow(
-                            color: Color.fromRGBO(129, 128, 125, 0.2),
-                            blurRadius: 15.0,
-                            spreadRadius: 0.0,
-                            offset: Offset(0, 7),
-                            blurStyle: BlurStyle.normal)
-                      ]),
-                  child: BlocBuilder<AuthBloc, AuthState>(
-                    builder: (context, state) {
-                      return TextFormField(
-                        style: AuthStyles.headlineStyle2,
-                        keyboardType: TextInputType.visiblePassword,
-                        controller: password,
-                        decoration: const InputDecoration(
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide.none,
-                          ),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(50),
+                        color: Colors.white,
+                        boxShadow: const [
+                          BoxShadow(
+                              color: Color.fromRGBO(129, 128, 125, 0.2),
+                              blurRadius: 15.0,
+                              spreadRadius: 0.0,
+                              offset: Offset(0, 7),
+                              blurStyle: BlurStyle.normal)
+                        ]),
+                    child: TextFormField(
+                      style: AuthStyles.headlineStyle2,
+                      keyboardType: TextInputType.visiblePassword,
+                      controller: password,
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide.none,
                         ),
-                      );
-                    },
-                  ),
-                ),
+                      ),
+                    )),
                 const SizedBox(height: 169),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
@@ -124,11 +120,10 @@ class _EnteringPhonePageState extends State<EnteringPhonePage> {
                         horizontal: 25, vertical: 15),
                     fixedSize: const Size(360, 56),
                   ),
-                  onPressed: () async {
-                    context.read<AuthBloc>().getAuthToken;
+                  onPressed: () {
+                    context.read<AuthBloc>().add(GetTokenFromFirebase(
+                        email: email.text, password: password.text));
                     context.go('/emailpass/success');
-                    email.clear();
-                    password.clear();
                   },
                   child: Text('Начнем!', style: AuthStyles.headlineStyle3),
                 )
@@ -140,3 +135,18 @@ class _EnteringPhonePageState extends State<EnteringPhonePage> {
     );
   }
 }
+// onPressed: () {
+//   BlocProvider.of<AuthBloc>(context).add(GetTokenFromFirebase(email: email.text, password: password.text))
+// }
+
+// onPressed: () async {
+//                     context.read<AuthBloc>().getAuthToken;
+//                     context.go('/emailpass/success');
+//                     email.clear();
+//                     password.clear();
+//                   },
+
+
+// context.read<AuthBloc>().add(GetTokenFromFirebase(
+//                         email: email.text, password: password.text));
+//                     context.go('/emailpass/success');

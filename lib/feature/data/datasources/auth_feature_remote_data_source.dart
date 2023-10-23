@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class AuthFeatureRemoteDataSource {
-  Future<UserCredential?> getAuthToken(String email, String password);
+  Future<AuthFeatureModel?> getAuthToken(String email, String password);
 }
 
 class AuthFeatureRemoteDataSourceImpl implements AuthFeatureRemoteDataSource {
@@ -16,11 +16,11 @@ class AuthFeatureRemoteDataSourceImpl implements AuthFeatureRemoteDataSource {
   }
 
   @override
-  Future<UserCredential?> getAuthToken(String email, String password) async {
+  Future<AuthFeatureModel?> getAuthToken(String email, String password) async {
     try {
       UserCredential result = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
-      return result;
+      return AuthFeatureModel(token: result.credential!.token!);
     } on FirebaseAuthException catch (e) {
       throw FirebaseAuthException(code: e.code, message: e.message);
     }
