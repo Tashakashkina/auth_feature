@@ -4,7 +4,6 @@ import 'package:auth_feature/injection_container.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 
 class EnteringPhonePage extends StatefulWidget {
   const EnteringPhonePage({super.key});
@@ -120,10 +119,10 @@ class _EnteringPhonePageState extends State<EnteringPhonePage> {
                         horizontal: 25, vertical: 15),
                     fixedSize: const Size(360, 56),
                   ),
-                  onPressed: () {
+                  onPressed: () async {
                     context.read<AuthBloc>().add(GetTokenFromFirebase(
                         email: email.text, password: password.text));
-                    context.go('/emailpass/success');
+                    Navigator.pushNamed(context, 'success');
                   },
                   child: Text('Начнем!', style: AuthStyles.headlineStyle3),
                 )
@@ -135,18 +134,3 @@ class _EnteringPhonePageState extends State<EnteringPhonePage> {
     );
   }
 }
-// onPressed: () {
-//   BlocProvider.of<AuthBloc>(context).add(GetTokenFromFirebase(email: email.text, password: password.text))
-// }
-
-// onPressed: () async {
-//                     context.read<AuthBloc>().getAuthToken;
-//                     context.go('/emailpass/success');
-//                     email.clear();
-//                     password.clear();
-//                   },
-
-
-// context.read<AuthBloc>().add(GetTokenFromFirebase(
-//                         email: email.text, password: password.text));
-//                     context.go('/emailpass/success');

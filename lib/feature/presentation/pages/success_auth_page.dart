@@ -1,9 +1,7 @@
 import 'package:auth_feature/feature/presentation/bloc/bloc/token/auth_bloc.dart';
-import 'package:auth_feature/feature/presentation/bloc/bloc/token/auth_bloc.dart';
 import 'package:auth_feature/feature/presentation/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import '../../../injection_container.dart';
 
 class SuccessAuthPage extends StatefulWidget {
@@ -44,7 +42,7 @@ class _SuccessAuthPageState extends State<SuccessAuthPage> {
               ),
               onPressed: () async {
                 context.read<AuthBloc>().add(ClearTokenStorage());
-                context.go('/emailpass');
+                Navigator.pushNamed(context, 'phone');
               },
               child: Text('LogOut', style: AuthStyles.headlineStyle3),
             ),

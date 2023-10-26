@@ -1,4 +1,5 @@
 import 'package:auth_feature/feature/domain/entities/auth_token.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthFeatureModel extends AuthToken {
   const AuthFeatureModel({
