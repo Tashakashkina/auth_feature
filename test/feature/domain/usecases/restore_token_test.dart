@@ -8,8 +8,7 @@ import 'package:mockito/mockito.dart';
 
 import 'get_token_test.dart';
 
-class MockNumberTriviaRepository extends Mock
-    implements AuthFeatureRepository {}
+class MockAuthFeatureRepository extends Mock implements AuthFeatureRepository {}
 
 void main() {
   late RestoreToken usecase;

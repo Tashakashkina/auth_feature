@@ -9,7 +9,7 @@ abstract class UseCase<Type, Params> {
 
 class NoParams extends Equatable {
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class EmailPasswordParams extends Equatable {
@@ -20,4 +20,16 @@ class EmailPasswordParams extends Equatable {
 
   @override
   List<Object?> get props => [];
+}
+
+class UserDataParams extends Equatable {
+  final String uid;
+  final String email;
+  final int time;
+
+  const UserDataParams(
+      {required this.uid, required this.email, required this.time});
+
+  @override
+  List<Object?> get props => [uid, email, time];
 }

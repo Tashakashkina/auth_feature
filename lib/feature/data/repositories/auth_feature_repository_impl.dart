@@ -1,6 +1,5 @@
 import 'package:auth_feature/core/error/exceptions.dart';
 import 'package:auth_feature/core/error/failures.dart';
-import 'package:auth_feature/feature/data/models/auth_feature_model.dart';
 import 'package:auth_feature/feature/domain/repositories/auth_feature_repository.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
