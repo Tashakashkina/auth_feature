@@ -1,4 +1,3 @@
-import 'package:auth_feature/core/error/failures.dart';
 import 'package:auth_feature/core/usecase.dart';
 import 'package:auth_feature/profile_feature/domain/entities/user.dart';
 import 'package:auth_feature/profile_feature/domain/repositories/profile_feature_repository.dart';
@@ -14,11 +13,7 @@ void main() {
   late GetUserDataUsecase usecase;
   late MockProfileFeatureRepository mockProfileFeatureRepository;
 
-  const tUser = User(
-    uid: '1234',
-    email: 'email',
-    time: 1,
-  );
+  final tUser = User(uid: '1234', email: 'email', time: DateTime.now());
   setUp(() {
     mockProfileFeatureRepository = MockProfileFeatureRepository();
     usecase = GetUserDataUsecase(repository: mockProfileFeatureRepository);
@@ -29,12 +24,12 @@ void main() {
     () async {
       // arrange
       when(() => mockProfileFeatureRepository.getUserData())
-          .thenAnswer((_) async => const Right(tUser));
+          .thenAnswer((_) async => Right(tUser));
       // act
       final result = await usecase(NoParams());
       // assert
       verify(() => mockProfileFeatureRepository.getUserData());
-      expect(result, const Right(tUser));
+      expect(result, Right(tUser));
 
       verifyNoMoreInteractions(mockProfileFeatureRepository);
     },
