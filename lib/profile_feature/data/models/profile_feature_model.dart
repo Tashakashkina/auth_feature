@@ -1,17 +1,84 @@
 import 'package:auth_feature/profile_feature/domain/entities/user.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class UserModel extends User {
   const UserModel({
-    required String uid,
-    required String email,
-    required int time,
-  }) : super(uid: uid, email: email, time: time);
+    final String? uid,
+    final String? email,
+    final DateTime? time,
+  }) : super(
+          uid: uid,
+          email: email,
+          time: time,
+        );
 
-  Map<String, dynamic> toMap() {
+  factory UserModel.fromSnapshot(DocumentSnapshot documentSnapshot) {
+    return UserModel(
+        uid: documentSnapshot.get('uid'),
+        email: documentSnapshot.get('email'),
+        time: documentSnapshot.get(DateTime.now()));
+  }
+
+  Map<String, dynamic> toDocument() {
     return {
-      'uid': uid,
-      'email': email,
+      "uid": uid,
+      "email": email,
       'time': time,
     };
   }
 }
+
+// class UserModel extends User {
+//   const UserModel({
+//     required String uid,
+//     required String email,
+//     required DateTime time,
+//   }) : super(uid: uid, email: email, time: time);
+
+//   factory UserModel.fromJson(Map<String, dynamic> json) {
+//     return UserModel(
+//       uid: (json['uid']).toString(),
+//       email: (json['email']).toString(),
+//       time: (json['time']),
+//     );
+//   }
+
+//   Map<String, dynamic> toJson() {
+//     return {'uid': uid, 'email': email, 'time': time};
+//   }
+// }
+
+// class UserModel extends User {
+//   const UserModel({
+//     required String uid,
+//     required String email,
+//     required int time,
+//   }) : super(uid: uid, email: email, time: time);
+
+//   Map<String, dynamic> toMap() {
+//     return {
+//       'uid': uid,
+//       'email': email,
+//       'time': time,
+//     };
+//   }
+
+//   static fromDocumentSnapshot(
+//       QueryDocumentSnapshot<Map<String, dynamic>> doc) {
+//     UserModel(
+//         uid: doc.id,
+//         email: doc.data()["email"],
+//         time: doc.data()["time"]);
+//   }
+//   UserModel copyWith({
+//     String? uid,
+//     String? email,
+//     int? time,
+//   }) {
+//     return UserModel(
+//       uid: uid ?? this.uid,
+//       email: email ?? this.email,
+//       time: time ?? this.time,
+//     );
+//   }
+// }
