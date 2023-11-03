@@ -1,13 +1,27 @@
+import 'package:auth_feature/core/usecase.dart';
+import 'package:auth_feature/profile_feature/domain/usecases/get_user_data.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+
+import '../../data/models/profile_feature_model.dart';
 
 part 'profile_event.dart';
 part 'profile_state.dart';
 
 class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
-  ProfileBloc() : super(ProfileInitial()) {
-    on<ProfileEvent>((event, emit) {
-      // TODO: implement event handler
-    });
+  final GetUserDataUsecase getUserData;
+
+  ProfileBloc({
+    required this.getUserData,
+  }) : super(ProfileInitial()) {
+    on<GetUserEvent>(_getUserData);
+  }
+
+  Future<void> _getUserData(
+      GetUserEvent event, Emitter<ProfileState> emit) async {
+    emit(ProfileLoading());
+    final result = await getUserData.call(NoParams());
+    result.fold((l) => emit(const ProfileError(error: 'error')),
+        (r) => emit(ProfileLoaded()));
   }
 }
