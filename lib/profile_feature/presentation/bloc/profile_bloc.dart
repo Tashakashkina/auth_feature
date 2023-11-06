@@ -1,9 +1,8 @@
 import 'package:auth_feature/core/usecase.dart';
+import 'package:auth_feature/profile_feature/domain/entities/user.dart';
 import 'package:auth_feature/profile_feature/domain/usecases/get_user_data.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-
-import '../../data/models/profile_feature_model.dart';
 
 part 'profile_event.dart';
 part 'profile_state.dart';

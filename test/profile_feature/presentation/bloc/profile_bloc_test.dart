@@ -17,6 +17,7 @@ void main() {
     email: 'email',
     time: DateTime.now(),
   );
+
   setUp(() {
     mockGetUserDataUsecase = MockGetUserDataUsecase();
     profileBloc = ProfileBloc(getUserData: mockGetUserDataUsecase);

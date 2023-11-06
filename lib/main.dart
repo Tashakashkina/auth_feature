@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:auth_feature/feature/presentation/bloc/bloc/token/auth_bloc.dart';
+import 'package:auth_feature/profile_feature/presentation/bloc/profile_bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -23,9 +24,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => sl<AuthBloc>()..add(CheckAuthToken()),
-      lazy: false,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+            create: (context) => sl<AuthBloc>()..add(CheckAuthToken()),
+            lazy: false),
+        BlocProvider(
+            create: (context) => sl<ProfileBloc>()..add(GetUserEvent())),
+      ],
       child: MaterialApp(
         initialRoute:
             FirebaseAuth.instance.currentUser == null ? 'phone' : 'success',
