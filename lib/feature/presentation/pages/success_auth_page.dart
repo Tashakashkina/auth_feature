@@ -1,6 +1,7 @@
 import 'package:auth_feature/feature/presentation/bloc/bloc/token/auth_bloc.dart';
 import 'package:auth_feature/feature/presentation/utils/styles.dart';
 import 'package:auth_feature/profile_feature/presentation/bloc/profile_bloc.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart';
@@ -40,12 +41,18 @@ class _SuccessAuthPageState extends State<SuccessAuthPage> {
               ),
               const SizedBox(height: 100),
               //
-              Card(
-                  child: ListTile(
-                title: Text('uid'),
-                subtitle: Text(user!.email!),
-                trailing: Text('time'),
-              )),
+              StreamBuilder<QuerySnapshot>(
+                  stream: FirebaseFirestore.instance
+                      .collection("users")
+                      .snapshots(),
+                  builder: (context, snapshot) {
+                    return Card(
+                        child: ListTile(
+                      title: Text('uid'),
+                      subtitle: Text(user!.email!),
+                      trailing: Text('time'),
+                    ));
+                  }),
               const SizedBox(height: 130),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
