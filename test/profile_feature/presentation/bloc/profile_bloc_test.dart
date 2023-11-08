@@ -42,9 +42,11 @@ void main() {
         () => mockGetUserDataUsecase.call(NoParams()),
       ).thenAnswer((_) async => Right(tUser));
 
+      var data;
       final expected = [
+        ProfileInitial(),
         ProfileLoading(),
-        ProfileLoaded(),
+        ProfileLoaded(data: data),
       ];
       expectLater(profileBloc.stream, emitsInOrder(expected));
 
@@ -56,6 +58,7 @@ void main() {
       ).thenAnswer((_) async => Left(ServerFailure()));
 
       final expected = [
+        ProfileInitial(),
         ProfileLoading(),
         const ProfileError(error: 'error'),
       ];

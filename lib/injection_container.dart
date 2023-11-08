@@ -9,7 +9,6 @@ import 'package:auth_feature/profile_feature/data/repositories/profile_feature_r
 import 'package:auth_feature/profile_feature/domain/repositories/profile_feature_repository.dart';
 import 'package:auth_feature/profile_feature/domain/usecases/get_user_data.dart';
 import 'package:auth_feature/profile_feature/presentation/bloc/profile_bloc.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_it/get_it.dart';
@@ -51,7 +50,7 @@ Future<void> init() async {
           ));
 
   sl.registerLazySingleton<ProfileFeatureRemoteDataSource>(
-      () => ProfileFeatureRemoteDataSourceImpl(auth: sl(), firestore: sl()));
+      () => ProfileFeatureRemoteDataSourceImpl(instance: sl()));
 //
   sl.registerLazySingleton<AuthFeatureLocalDataSource>(
       () => AuthFeatureLocalDataSourceImpl(
@@ -59,7 +58,6 @@ Future<void> init() async {
           ));
   //
   sl.registerLazySingleton(() => FirebaseAuth.instance);
-  sl.registerLazySingleton(() => FirebaseFirestore.instance);
 
 //
   final sharedPreferences = await SharedPreferences.getInstance();

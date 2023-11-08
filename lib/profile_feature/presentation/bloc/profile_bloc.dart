@@ -20,7 +20,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       GetUserEvent event, Emitter<ProfileState> emit) async {
     emit(ProfileLoading());
     final result = await getUserData.call(NoParams());
-    result.fold((l) => emit(const ProfileError(error: 'error')),
-        (r) => emit(ProfileLoaded()));
+    emit(result.fold((l) => const ProfileError(error: 'error'),
+        (data) => ProfileLoaded(data: data)));
   }
 }

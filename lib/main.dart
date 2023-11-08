@@ -30,7 +30,8 @@ class MyApp extends StatelessWidget {
             create: (context) => sl<AuthBloc>()..add(CheckAuthToken()),
             lazy: false),
         BlocProvider(
-            create: (context) => sl<ProfileBloc>()..add(GetUserEvent())),
+          create: (context) => sl<ProfileBloc>()..add(GetUserEvent()),
+        ),
       ],
       child: MaterialApp(
         initialRoute:

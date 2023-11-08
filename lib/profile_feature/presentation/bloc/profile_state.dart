@@ -11,7 +11,12 @@ final class ProfileInitial extends ProfileState {}
 
 final class ProfileLoading extends ProfileState {}
 
-final class ProfileLoaded extends ProfileState {}
+final class ProfileLoaded extends ProfileState {
+  final User data;
+  const ProfileLoaded({required this.data});
+  @override
+  List<Object> get props => [data];
+}
 
 final class ProfileError extends ProfileState {
   final String error;

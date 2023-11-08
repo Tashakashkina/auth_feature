@@ -18,12 +18,12 @@ class ProfileFeatureRepositoryImpl implements ProfileFeatureRepository {
     if (await networkInfo.isConnected) {
       try {
         final result = await remoteDataSource.getUserData();
-        return Right(result!);
+        return Right(result);
       } on ServerException {
         return Left(ServerFailure());
       }
     } else {
-      return Left(ServerFailure());
+      return Left(NetworkFailure());
     }
   }
 }

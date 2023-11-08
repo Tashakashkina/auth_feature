@@ -37,49 +37,49 @@ void main() {
       when(
         () => mockNetworkInfo.isConnected,
       ).thenAnswer((_) async => true);
-      await mockNetworkInfo.isConnected;
+      await profileFeatureRepositoryImpl.getUserData();
       verify(() => mockNetworkInfo.isConnected);
     });
-    group('when device is online', () {
-      setUp(() {
-        when(
-          () => mockNetworkInfo.isConnected,
-        ).thenAnswer((_) async => true);
-      });
-      test('should return remote data when call is succesfull', () async {
-        when(
-          () => mockRemoteDataSource.getUserData(),
-        ).thenAnswer((_) async => tUserModel);
-        final result = await profileFeatureRepositoryImpl.getUserData();
-        verify(
-          () => mockRemoteDataSource.getUserData(),
-        );
-        expect(result, equals(Right(tUser)));
-      });
-      test('should return failure when call is unsuccesfull', () async {
-        when(
-          () => mockRemoteDataSource.getUserData(),
-        ).thenThrow(ServerException());
-        final result = await profileFeatureRepositoryImpl.getUserData();
-        verify(
-          () => mockRemoteDataSource.getUserData(),
-        );
-        expect(result, equals(Left(ServerFailure())));
-      });
+  });
+  group('when device is online', () {
+    setUp(() {
+      when(
+        () => mockNetworkInfo.isConnected,
+      ).thenAnswer((_) async => true);
     });
-    group('device is offline', () {
-      setUp(() {
-        when(
-          () => mockNetworkInfo.isConnected,
-        ).thenAnswer((_) async => false);
-      });
-      test('should return failure', () async {
-        final result = await profileFeatureRepositoryImpl.getUserData();
-        verifyNever(
-          () => mockRemoteDataSource.getUserData(),
-        );
-        expect(result, equals(Left(ServerFailure())));
-      });
+    test('should return remote data when call is succesfull', () async {
+      when(
+        () => mockRemoteDataSource.getUserData(),
+      ).thenAnswer((_) async => tUserModel);
+      final result = await profileFeatureRepositoryImpl.getUserData();
+      verify(
+        () => mockRemoteDataSource.getUserData(),
+      );
+      expect(result, equals(Right(tUser)));
+    });
+    test('should return failure when call is unsuccesfull', () async {
+      when(
+        () => mockRemoteDataSource.getUserData(),
+      ).thenThrow(ServerException());
+      final result = await profileFeatureRepositoryImpl.getUserData();
+      verify(
+        () => mockRemoteDataSource.getUserData(),
+      );
+      expect(result, equals(Left(ServerFailure())));
+    });
+  });
+  group('device is offline', () {
+    setUp(() {
+      when(
+        () => mockNetworkInfo.isConnected,
+      ).thenAnswer((_) async => false);
+    });
+    test('should return failure', () async {
+      final result = await profileFeatureRepositoryImpl.getUserData();
+      verifyNever(
+        () => mockRemoteDataSource.getUserData(),
+      );
+      expect(result, equals(Left(ServerFailure())));
     });
   });
 }
